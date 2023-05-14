@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 
 def generate_all_masks(length: int) -> list:
-    masks = list(range(2**length))
+    masks = list(range(2 ** length))
     masks = [np.binary_repr(mask, width=length) for mask in masks]
     masks = [[bool(int(item)) for item in mask] for mask in masks]
     return masks
@@ -216,6 +216,12 @@ def get_reward(values, selected_dim, **kwargs):
             values = values[:, 0]
         else:
             values = -values[:, 0]
+    elif selected_dim == "logistic-odds":
+        assert len(values.shape) == 2 and values.shape[1] == 1
+        values = values[:, 0]
+    elif selected_dim == "neg-logistic-odds":
+        assert len(values.shape) == 2 and values.shape[1] == 1
+        values = -values[:, 0]
     elif selected_dim == "gt-logistic-odds-v0":
         assert "gt" in kwargs
         assert "v0" in kwargs

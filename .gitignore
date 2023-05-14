@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# My
+README.html
+tmp/
+demo/
+README.assets/
