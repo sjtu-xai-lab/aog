@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 *(Under construction, stay tuned ...)*
 
-![aog_demo](.\images\aog_demo.gif)
+<img src=".\images\aog_demo.gif"></img>
 
 
 
