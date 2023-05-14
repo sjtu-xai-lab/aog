@@ -57,7 +57,7 @@ class SST2(object):
 
         self._is_data_loaded = True
 
-    def get_dataloader(self, batch_size):
+    def get_dataloader(self, batch_size, **kwargs):
         if not self._is_data_loaded:
             self._load_data()
         train_iterator, test_iterator = BucketIterator.splits(

@@ -1,4 +1,7 @@
 # Defining and Quantifying the Emergence of Sparse Concepts in DNNs
+
+<img src="https://shields.io/badge/STILL-work--in--progress-red?style=for-the-badge"></img>
+
 PyTorch Implementation of the paper "Defining and Quantifying the Emergence of Sparse Concepts in DNNs" (CVPR 2023) [arxiv](https://arxiv.org/abs/2111.06206)
 
 ## Requirements
@@ -102,23 +105,62 @@ pip install -r requirements.txt
 
 ## Usage
 
-*(Under construction, stay tuned ...)*
+*(Under construction, stay tuned ...) TODO list:*
 
-- [ ] basic codes
-  - [ ] models
-  - [ ] datasets
+- [x] models
+  - [x] tabular
+  - [x] NLP
+  - [x] image
+- [ ] datasets
+  - [x] tabular (commercial, census, bike)
+  - [x] NLP (SST-2, CoLA)
+  - [ ] image (MNIST)
 - [x] demo of a whole pipeline
 - [ ] verification on synthesized datasets
 - [ ] objectiveness on tabular datasets
 
+**Compute interactions**
+
+The following code shows how to compute interactions given an input sample encoded by a trained model.
+
+~~~bash
+
+~~~
+
+**Visualize the AOG**
+
+The following code shows how to visualize an AOG based on computed interactions. You can also refer to the demo below. E.g. [![Maintenance](https://img.shields.io/badge/Open%20in-nbviewer-orange.svg)](https://nbviewer.org/github/sjtu-xai-lab/aog/blob/main/src/demo_sentiment_classification.ipynb)
+
+~~~bash
+
+~~~
+
+**Beforehand: train a model**
+
+The following code shows two examples of how to train a model based on tabular/NLP datasets.
+
+~~~bash
+cd ./src
+
+# tabular: 2-layer-MLP @ census
+python3 train_model.py --data-root=/folder/of/the/dataset \
+  --device=0 --dataset=census --arch=mlp2_logistic --seed=0 \
+  --batch_size=512 --lr=0.01 --logspace=1 --epoch=500
+
+# NLP: LSTM @ SST-2
+python3 train_model.py --data-root=/folder/of/the/dataset \
+  --device=0 --dataset=sst2 --arch=lstm2_uni --seed=0 \
+  --batch-size=64 --lr=0.001 --logspace=1 --n-epoch=200
+~~~
+
 ## Demos
 
-Here are some demos which reproduce experimental results in this paper. You can also clone this repo and try these `ipynb` files on your own.
-
-<img src=".\images\aog_demo.gif"></img>
+Here are some demos which reproduce experimental results in this paper. You can also clone this repo and try the `ipynb` files on your own.
 
 - A demo for an sentiment classification example [![Maintenance](https://img.shields.io/badge/Open%20in-nbviewer-orange.svg)](https://nbviewer.org/github/sjtu-xai-lab/aog/blob/main/src/demo_sentiment_classification.ipynb)
 - *(Under construction, stay tuned ...)*
+
+<img src=".\images\aog_demo.gif"></img>
 
 ## Citation
 

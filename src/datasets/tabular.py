@@ -117,7 +117,7 @@ class TabularDataset(object):
         return self.X_train_sampled, self.y_train_sampled, \
                self.X_test_sampled, self.y_test_sampled
 
-    def get_dataloader(self, batch_size, balance=False, shuffle_train=True):
+    def get_dataloader(self, batch_size, balance=False, shuffle_train=True, **kwargs):
         if not self._is_data_loaded:
             self._load_data()
         # create dataloader
