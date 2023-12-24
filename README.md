@@ -1,7 +1,5 @@
 # Defining and Quantifying the Emergence of Sparse Concepts in DNNs
 
-<img src="https://shields.io/badge/STILL-work--in--progress-red?style=for-the-badge"></img>
-
 PyTorch Implementation of the paper "Defining and Quantifying the Emergence of Sparse Concepts in DNNs" (CVPR 2023) [arxiv](https://arxiv.org/abs/2111.06206)
 
 ## Requirements
@@ -18,7 +16,7 @@ pip install -r requirements.txt
   from harsanyi import AndHarsanyi
   
   # model: Callable = ... (the model, i.e. a callable function)
-  # selected_dim: str = ... (Please see interaction_utils.py)
+  # selected_dim: str = ... (the output dimension of the model to be explained. Please see interaction_utils.py)
   # sample: torch.Tensor = ... (the input sample)
   # baseline: torch.Tensor = ... (the baseline value)
   # label: Union[torch.Tensor, int] = ... (the ground-truth label)
@@ -54,10 +52,12 @@ pip install -r requirements.txt
   # niter: int = ... (how many iterations to optimize the baseline value)
   
   sparsifer = AndBaselineSparsifier(
-      calculator=calculator, loss="l1",
-      baseline_min=baseline_min,
-      baseline_max=baseline_max,
-      baseline_lr=1e-3, niter=50
+      calculator   = calculator, 
+      loss         = "l1",
+      baseline_min = baseline_min,
+      baseline_max = baseline_max,
+      baseline_lr  = 1e-3, 
+      niter        = 50
   )
   sparsifer.sparsify()
   
@@ -79,61 +79,38 @@ pip install -r requirements.txt
   
   #  2. aggregate common coalitions
   merged_patterns, aggregated_concepts, _ = aggregate_pattern_iterative(
-      patterns=masks[selected_indices],
-      interactions=interactions[selected_indices],
+      patterns     = masks[selected_indices],
+      interactions = interactions[selected_indices],
   )
   single_features = np.vstack([np.eye(len(words)).astype(bool), merged_patterns])
   
   # 3. construct AOG
   aog = construct_AOG(
-      attributes=words,
-      single_features=single_features,
-      concepts=aggregated_concepts,
-      interactions=interactions[selected_indices]
+      attributes      = words,
+      single_features = single_features,
+      concepts        = aggregated_concepts,
+      interactions    = interactions[selected_indices]
   )
   
   # 4. construct AOG
   aog.visualize(
-      figsize=(15, 7),
-      save_path="aog.svg", 
-      renderer="networkx",
-      n_row_interaction=3,
-      highlight_path=f"rank-1",
-      title=f"dummy title"
+      figsize        = (15, 7),
+      save_path      = "aog.svg", # or "aog.html" for an interactive demo 
+      renderer       = "networkx",
+      highlight_path = "rank-1",
+      title          = "dummy title"
   )
   ~~~
 
 ## Usage
 
-*(Under construction, stay tuned ...) TODO list:*
-
-- [x] models
-  - [x] tabular
-  - [x] NLP
-  - [x] image
-- [ ] datasets
-  - [x] tabular (commercial, census, bike)
-  - [x] NLP (SST-2, CoLA)
-  - [ ] image (MNIST)
+- [x] models: tabular, NLP, image
+- [x] datasets: tabular (commercial, census, bike), NLP (SST-2, CoLA), image (MNIST)
 - [x] demo of a whole pipeline
-- [ ] verification on synthesized datasets
-- [ ] objectiveness on tabular datasets
 
-**Compute interactions**
+**Compute interactions and visualize the AOG**
 
-The following code shows how to compute interactions given an input sample encoded by a trained model.
-
-~~~bash
-
-~~~
-
-**Visualize the AOG**
-
-The following code shows how to visualize an AOG based on computed interactions. You can also refer to the demo below. E.g. [![Maintenance](https://img.shields.io/badge/Open%20in-nbviewer-orange.svg)](https://nbviewer.org/github/sjtu-xai-lab/aog/blob/main/src/demo_sentiment_classification.ipynb)
-
-~~~bash
-
-~~~
+The following notebook shows how to visualize an AOG based on computed interactions. [![Maintenance](https://img.shields.io/badge/Open%20in-nbviewer-orange.svg)](https://nbviewer.org/github/sjtu-xai-lab/aog/blob/main/src/demo_sentiment_classification.ipynb)
 
 **Beforehand: train a model**
 
@@ -165,12 +142,13 @@ Here are some demos which reproduce experimental results in this paper. You can 
 ## Citation
 
 ~~~latex
-@inproceedings{ren2023defining,
-  title={Defining and quantifying the emergence of sparse concepts in dnns},
-  author={Ren, Jie and Li, Mingjie and Chen, Qirui and Deng, Huiqi and Zhang, Quanshi},
-  booktitle={IEEE Conference on Computer Vision and Pattern Recognition, {CVPR} 2023},
-  pages={},
-  year={2023}
+@InProceedings{Ren_2023_CVPR,
+    author    = {Ren, Jie and Li, Mingjie and Chen, Qirui and Deng, Huiqi and Zhang, Quanshi},
+    title     = {Defining and Quantifying the Emergence of Sparse Concepts in DNNs},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {20280-20289}
 }
 ~~~
 
